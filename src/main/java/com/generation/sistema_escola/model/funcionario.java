@@ -1,4 +1,4 @@
 package com.generation.sistema_escola.model;
 
-public class test {
+public class funcionario {
 }
