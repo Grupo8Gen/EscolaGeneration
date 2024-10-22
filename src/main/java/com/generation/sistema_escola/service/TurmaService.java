@@ -1,7 +1,6 @@
 package com.generation.sistema_escola.service;
 
-
-
+import com.generation.sistema_escola.model.Aluno;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,25 +17,17 @@ public class TurmaService {
     @Autowired
     private TurmaRepository turmaRepository;
 
-    
-    
     public ResponseEntity<List<Turma>> listarTodas() {
         List<Turma> turmas = turmaRepository.findAll();
         return ResponseEntity.ok(turmas);
     }
-    
-    
 
-    
     public ResponseEntity<Turma> buscarPorId(Long id) {
         return turmaRepository.findById(id)
                 .map(turma -> ResponseEntity.ok(turma))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
-    
-    
-   
     public ResponseEntity<Turma> salvar(Turma turma) {
         for (Aluno aluno : turma.getAlunos()) {
             if (turmaRepository.existsByAlunos_IdAndHorario(aluno.getId(), turma.getHorario())) {
@@ -48,9 +39,6 @@ public class TurmaService {
         return ResponseEntity.status(HttpStatus.CREATED).body(turmaSalva);
     }
 
-    
-    
-    
     public ResponseEntity<Turma> atualizar(Long id, Turma turmaAtualizada) {
         if (!turmaRepository.existsById(id)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -74,9 +62,6 @@ public class TurmaService {
         return ResponseEntity.ok(turmaSalva);
     }
 
-    
-    
-    
     public ResponseEntity<Void> deletar(Long id) {
         if (turmaRepository.existsById(id)) {
             turmaRepository.deleteById(id);

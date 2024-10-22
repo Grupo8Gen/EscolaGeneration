@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "alunos")
@@ -26,21 +28,26 @@ public class Aluno {
     @NotNull(message = "A nota do primeiro módulo não pode ser nula")
     @Min(value = 0, message = "A nota do primeiro módulo deve ser positiva")
     @Column(name = "nota_primeiro_modulo")
-    private Double notaPrimeiroModulo;
+    private Double notaPrimeiroModulo = 0.0;
 
     @NotNull(message = "A nota do segundo módulo não pode ser nula")
     @Min(value = 0, message = "A nota do segundo módulo deve ser positiva")
     @Column(name = "nota_segundo_modulo")
-    private Double notaSegundoModulo;
+    private Double notaSegundoModulo = 0.0;
 
     @Email(message = "O e-mail deve ser válido")
     @NotBlank(message = "O e-mail não pode estar em branco")
-    @Column(unique = true) 
+    @Column(unique = true)
     private String email;
 
-    @Transient 
+    @Transient
     private Double media;
-  
+
+    // PASSAR O ID DA TURMA AO INVES DO OBJETO TODO
+    @ManyToOne
+    @JoinColumn(name = "turma_id", nullable = false) // Chave estrangeira que referencia a turma
+    private Turma turma;
+
     public Aluno() {
     }
 
@@ -51,13 +58,14 @@ public class Aluno {
         this.notaPrimeiroModulo = notaPrimeiroModulo;
         this.notaSegundoModulo = notaSegundoModulo;
         this.email = email;
-        this.media = calcularMedia(); 
+        this.turma = turma;
+        this.media = calcularMedia();    }
+
+
+    public Double calcularMedia() {
+        return (notaPrimeiroModulo + notaSegundoModulo) / 2;
     }
 
-    
-    public Double calcularMedia() {
-        return (notaPrimeiroModulo + notaSegundoModulo) / 2; // Método para calcular a média
-    }
 
     public Long getId() {
         return id;
@@ -113,4 +121,11 @@ public class Aluno {
         return calcularMedia(); // Retorna a média atualizada
     }
 
+    public Turma getTurma() {
+        return turma;
+    }
+
+    public void setTurma(Turma turma) {
+        this.turma = turma;
+    }
 }

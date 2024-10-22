@@ -2,11 +2,12 @@ package com.generation.sistema_escola.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 
 @Entity
 public class Turma {
@@ -22,17 +23,15 @@ public class Turma {
     @NotBlank
     private String instrutor;
     
-    @NotBlank
+    @NotNull
     private LocalTime horario;
 
     @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnoreProperties("turma") 
-    private List<Aluno> alunos;
-    
-    
+    private List<Aluno> alunos = new ArrayList<>();
+
     public Turma() {}
-    
-  
+
     public Turma(Long id, @NotBlank @Size(min = 3) String nome, @NotBlank String instrutor, @NotBlank LocalTime horario,
 			List<Aluno> alunos) {
 		super();
@@ -43,9 +42,6 @@ public class Turma {
 		this.alunos = alunos;
 	}
 
-    
-    
-    
     public Long getId() {
         return id;
     }
