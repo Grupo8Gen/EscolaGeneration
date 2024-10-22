@@ -33,5 +33,4 @@ public class Funcionario {
 
     @NotBlank
     private String cargo;
-
 }
