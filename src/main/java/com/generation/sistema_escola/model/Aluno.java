@@ -1,5 +1,7 @@
 package com.generation.sistema_escola.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
@@ -42,9 +44,9 @@ public class Aluno {
     @Transient
     private Double media;
 
-    // PASSAR O ID DA TURMA AO INVES DO OBJETO TODO
+    // Mapeamento da relação ManyToOne com Turma
     @ManyToOne
-    @JoinColumn(name = "turma_id", nullable = false) // Chave estrangeira que referencia a turma
+    @JsonIgnoreProperties ("alunos")
     private Turma turma;
 
     public Aluno() {
@@ -57,74 +59,77 @@ public class Aluno {
         this.notaPrimeiroModulo = notaPrimeiroModulo;
         this.notaSegundoModulo = notaSegundoModulo;
         this.email = email;
-        this.turma = turma;
-        this.media = calcularMedia();    }
-
+        this.turma = turma; // Agora é um objeto Turma
+        this.media = calcularMedia();
+    }
 
     public Double calcularMedia() {
         return (notaPrimeiroModulo + notaSegundoModulo) / 2;
     }
 
+	public Long getId() {
+		return id;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public Integer getIdade() {
+		return idade;
+	}
 
-    public Integer getIdade() {
-        return idade;
-    }
+	public void setIdade(Integer idade) {
+		this.idade = idade;
+	}
 
-    public void setIdade(Integer idade) {
-        this.idade = idade;
-    }
+	public Double getNotaPrimeiroModulo() {
+		return notaPrimeiroModulo;
+	}
 
-    public Double getNotaPrimeiroModulo() {
-        return notaPrimeiroModulo;
-    }
+	public void setNotaPrimeiroModulo(Double notaPrimeiroModulo) {
+		this.notaPrimeiroModulo = notaPrimeiroModulo;
+	}
 
-    public void setNotaPrimeiroModulo(Double notaPrimeiroModulo) {
-        this.notaPrimeiroModulo = notaPrimeiroModulo;
-        this.media = calcularMedia(); // Atualiza a média sempre que a nota é alterada
-    }
+	public Double getNotaSegundoModulo() {
+		return notaSegundoModulo;
+	}
 
-    public Double getNotaSegundoModulo() {
-        return notaSegundoModulo;
-    }
+	public void setNotaSegundoModulo(Double notaSegundoModulo) {
+		this.notaSegundoModulo = notaSegundoModulo;
+	}
 
-    public void setNotaSegundoModulo(Double notaSegundoModulo) {
-        this.notaSegundoModulo = notaSegundoModulo;
-        this.media = calcularMedia(); // Atualiza a média sempre que a nota é alterada
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public Double getMedia() {
+		return media;
+	}
 
-    public Double getMedia() {
-        return calcularMedia(); // Retorna a média atualizada
-    }
+	public void setMedia(Double media) {
+		this.media = media;
+	}
 
-    public Turma getTurma() {
-        return turma;
-    }
+	public Turma getTurma() {
+		return turma;
+	}
 
-    public void setTurma(Turma turma) {
-        this.turma = turma;
-    }
+	public void setTurma(Turma turma) {
+		this.turma = turma;
+	}
+
+    
 }
