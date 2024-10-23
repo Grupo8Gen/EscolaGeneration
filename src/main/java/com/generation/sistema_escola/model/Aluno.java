@@ -52,7 +52,6 @@ public class Aluno {
     public Aluno() {
     }
 
-    // Construtor atualizado
     public Aluno(Long id, String nome, Integer idade, Double notaPrimeiroModulo, Double notaSegundoModulo, String email, Turma turma) {
         this.id = id;
         this.nome = nome;
