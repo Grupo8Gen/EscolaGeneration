@@ -33,4 +33,55 @@ public class Funcionario {
 
     @NotBlank
     private String cargo;
+
+
+    public Funcionario(Long id, String nome, String email, String senha, String cargo) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.cargo = cargo;
+    }
+
+
+
+    public @NotBlank String getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(@NotBlank String cargo) {
+        this.cargo = cargo;
+    }
+
+    public @NotNull @Size(min = 6) String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(@NotNull @Size(min = 6) String senha) {
+        this.senha = senha;
+    }
+
+    public @NotBlank @Email(message = "E-mail inválido") String getEmail() {
+        return email;
+    }
+
+    public void setEmail(@NotBlank @Email(message = "E-mail inválido") String email) {
+        this.email = email;
+    }
+
+    public @NotBlank @Size(min = 3) String getNome() {
+        return nome;
+    }
+
+    public void setNome(@NotBlank @Size(min = 3) String nome) {
+        this.nome = nome;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

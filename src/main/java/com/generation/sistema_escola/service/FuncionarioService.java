@@ -24,12 +24,17 @@ public class FuncionarioService {
     }
 
     public Funcionario saveFuncionario(Funcionario funcionario) {
+        if (repository.existsByEmail(funcionario.getEmail())) {
+            throw new IllegalArgumentException("E-mail já cadastrado.");
+        }
+
         try {
             return repository.save(funcionario);
         } catch (Exception e) {
             throw new RuntimeException("Erro ao salvar o funcionário", e);
         }
     }
+
 
     public Funcionario updateFuncionario(Funcionario funcionario) {
         try {
