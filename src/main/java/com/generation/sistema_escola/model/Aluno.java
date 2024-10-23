@@ -6,8 +6,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+
 
 @Entity
 @Table(name = "alunos")
@@ -51,7 +50,7 @@ public class Aluno {
     public Aluno() {
     }
 
-    public Aluno(Long id, String nome, Integer idade, Double notaPrimeiroModulo, Double notaSegundoModulo, String email) {
+    public Aluno(Long id, String nome, Integer idade, Double notaPrimeiroModulo, Double notaSegundoModulo, String email, Turma turma) {
         this.id = id;
         this.nome = nome;
         this.idade = idade;
