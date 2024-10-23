@@ -20,7 +20,7 @@ public class AlunoService {
         return alunoRepository.findAll();
     }
 
-    public Optional<Aluno> findById(Long id) {
+    public Optional<Aluno> findById(long id) {
         return alunoRepository.findById(id);
     }
 

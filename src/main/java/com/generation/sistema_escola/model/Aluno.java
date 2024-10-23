@@ -11,6 +11,8 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "alunos")
+@Getter
+@Setter
 public class Aluno {
 
     @Id
@@ -43,29 +45,32 @@ public class Aluno {
     @Transient
     private Double media;
 
-    // PASSAR O ID DA TURMA AO INVES DO OBJETO TODO
+    // Mapeamento da relação ManyToOne com Turma
     @ManyToOne
-    @JoinColumn(name = "turma_id", nullable = false) // Chave estrangeira que referencia a turma
-    private Turma turma;
+    @JoinColumn(name = "turma_id", referencedColumnName = "id", nullable = false) // Ajuste para o nome da coluna na tabela
+    private Turma turma; // Substitua o Long turmaId por um objeto Turma
 
     public Aluno() {
     }
 
-    public Aluno(Long id, String nome, Integer idade, Double notaPrimeiroModulo, Double notaSegundoModulo, String email) {
+    // Construtor atualizado
+    public Aluno(Long id, String nome, Integer idade, Double notaPrimeiroModulo, Double notaSegundoModulo, String email, Turma turma) {
         this.id = id;
         this.nome = nome;
         this.idade = idade;
         this.notaPrimeiroModulo = notaPrimeiroModulo;
         this.notaSegundoModulo = notaSegundoModulo;
         this.email = email;
-        this.turma = turma;
-        this.media = calcularMedia();    }
-
+        this.turma = turma; // Agora é um objeto Turma
+        this.media = calcularMedia();
+    }
 
     public Double calcularMedia() {
         return (notaPrimeiroModulo + notaSegundoModulo) / 2;
     }
 
+    // Getters e Setters
+    // (Você não precisa de métodos getter e setter para turmaId, pois agora está usando um objeto Turma)
 
     public Long getId() {
         return id;
@@ -97,7 +102,7 @@ public class Aluno {
 
     public void setNotaPrimeiroModulo(Double notaPrimeiroModulo) {
         this.notaPrimeiroModulo = notaPrimeiroModulo;
-        this.media = calcularMedia(); // Atualiza a média sempre que a nota é alterada
+        this.media = calcularMedia();
     }
 
     public Double getNotaSegundoModulo() {
@@ -106,7 +111,7 @@ public class Aluno {
 
     public void setNotaSegundoModulo(Double notaSegundoModulo) {
         this.notaSegundoModulo = notaSegundoModulo;
-        this.media = calcularMedia(); // Atualiza a média sempre que a nota é alterada
+        this.media = calcularMedia();
     }
 
     public String getEmail() {
@@ -118,7 +123,7 @@ public class Aluno {
     }
 
     public Double getMedia() {
-        return calcularMedia(); // Retorna a média atualizada
+        return calcularMedia();
     }
 
     public Turma getTurma() {
@@ -126,6 +131,6 @@ public class Aluno {
     }
 
     public void setTurma(Turma turma) {
-        this.turma = turma;
+        this.turma = turma; // Altere o tipo de turmaId para turma
     }
 }
