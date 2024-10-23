@@ -20,7 +20,7 @@ public class AlunoService {
         return alunoRepository.findAll();
     }
 
-    public Optional<Aluno> findById(Long id) {
+    public Optional<Aluno> findById(long id) {
         return alunoRepository.findById(id);
     }
 
@@ -55,4 +55,5 @@ public class AlunoService {
     public Double calcularMedia(Aluno aluno) {
         return (aluno.getNotaPrimeiroModulo() + aluno.getNotaSegundoModulo()) / 2.0;
     }
+  
 }
