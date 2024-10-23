@@ -55,4 +55,5 @@ public class AlunoService {
     public Double calcularMedia(Aluno aluno) {
         return (aluno.getNotaPrimeiroModulo() + aluno.getNotaSegundoModulo()) / 2.0;
     }
+  
 }

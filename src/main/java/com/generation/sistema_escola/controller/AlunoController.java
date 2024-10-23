@@ -34,9 +34,11 @@ public class AlunoController {
         return ResponseEntity.ok(alunos);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/buscar/{id}")
     public ResponseEntity<Aluno> getAlunoById(@PathVariable Long id) {
+    
         Optional<Aluno> aluno = alunoRepository.findById(id);
+        //System.out.println("teste" + aluno.get().getEmail());
         return aluno.map(ResponseEntity::ok)
                     .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }

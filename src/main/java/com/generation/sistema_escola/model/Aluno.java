@@ -1,18 +1,17 @@
 package com.generation.sistema_escola.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+
 
 @Entity
 @Table(name = "alunos")
-@Getter
-@Setter
 public class Aluno {
 
     @Id
@@ -47,8 +46,8 @@ public class Aluno {
 
     // Mapeamento da relação ManyToOne com Turma
     @ManyToOne
-    @JoinColumn(name = "turma_id", referencedColumnName = "id", nullable = false) // Ajuste para o nome da coluna na tabela
-    private Turma turma; // Substitua o Long turmaId por um objeto Turma
+    @JsonIgnoreProperties ("alunos")
+    private Turma turma;
 
     public Aluno() {
     }
@@ -69,68 +68,69 @@ public class Aluno {
         return (notaPrimeiroModulo + notaSegundoModulo) / 2;
     }
 
-    // Getters e Setters
-    // (Você não precisa de métodos getter e setter para turmaId, pois agora está usando um objeto Turma)
+	public Long getId() {
+		return id;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public Integer getIdade() {
+		return idade;
+	}
 
-    public Integer getIdade() {
-        return idade;
-    }
+	public void setIdade(Integer idade) {
+		this.idade = idade;
+	}
 
-    public void setIdade(Integer idade) {
-        this.idade = idade;
-    }
+	public Double getNotaPrimeiroModulo() {
+		return notaPrimeiroModulo;
+	}
 
-    public Double getNotaPrimeiroModulo() {
-        return notaPrimeiroModulo;
-    }
+	public void setNotaPrimeiroModulo(Double notaPrimeiroModulo) {
+		this.notaPrimeiroModulo = notaPrimeiroModulo;
+	}
 
-    public void setNotaPrimeiroModulo(Double notaPrimeiroModulo) {
-        this.notaPrimeiroModulo = notaPrimeiroModulo;
-        this.media = calcularMedia();
-    }
+	public Double getNotaSegundoModulo() {
+		return notaSegundoModulo;
+	}
 
-    public Double getNotaSegundoModulo() {
-        return notaSegundoModulo;
-    }
+	public void setNotaSegundoModulo(Double notaSegundoModulo) {
+		this.notaSegundoModulo = notaSegundoModulo;
+	}
 
-    public void setNotaSegundoModulo(Double notaSegundoModulo) {
-        this.notaSegundoModulo = notaSegundoModulo;
-        this.media = calcularMedia();
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public Double getMedia() {
+		return media;
+	}
 
-    public Double getMedia() {
-        return calcularMedia();
-    }
+	public void setMedia(Double media) {
+		this.media = media;
+	}
 
-    public Turma getTurma() {
-        return turma;
-    }
+	public Turma getTurma() {
+		return turma;
+	}
 
-    public void setTurma(Turma turma) {
-        this.turma = turma; // Altere o tipo de turmaId para turma
-    }
+	public void setTurma(Turma turma) {
+		this.turma = turma;
+	}
+
+    
 }
