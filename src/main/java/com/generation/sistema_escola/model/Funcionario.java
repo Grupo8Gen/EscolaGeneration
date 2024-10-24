@@ -29,7 +29,9 @@ public class Funcionario {
 
     @NotBlank
     private String cargo;
-
+    
+    public Funcionario() { //adicionei esse parametro
+    }
 
     public Funcionario(Long id, String nome, String email, String senha, String cargo) {
         this.id = id;
@@ -38,8 +40,6 @@ public class Funcionario {
         this.senha = senha;
         this.cargo = cargo;
     }
-
-
 
     public @NotBlank String getCargo() {
         return cargo;
