@@ -7,6 +7,5 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {
     boolean existsByEmail(String email);
-
     Funcionario findByEmail(String email);
 }

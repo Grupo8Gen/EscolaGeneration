@@ -4,9 +4,11 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -22,25 +24,26 @@ public class Turma {
 
     @NotBlank
     private String instrutor;
-    
+
     @NotNull
     private LocalTime horario;
 
     @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonIgnoreProperties("turma") 
+    @JsonIgnoreProperties("turma")
     private List<Aluno> alunos = new ArrayList<>();
 
-    public Turma() {}
+    public Turma() {
+    }
 
     public Turma(Long id, @NotBlank @Size(min = 3) String nome, @NotBlank String instrutor, @NotBlank LocalTime horario,
-			List<Aluno> alunos) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.instrutor = instrutor;
-		this.horario = horario;
-		this.alunos = alunos;
-	}
+                 List<Aluno> alunos) {
+        super();
+        this.id = id;
+        this.nome = nome;
+        this.instrutor = instrutor;
+        this.horario = horario;
+        this.alunos = alunos;
+    }
 
     public Long getId() {
         return id;
@@ -73,13 +76,13 @@ public class Turma {
     public void setAlunos(List<Aluno> alunos) {
         this.alunos = alunos;
     }
-    
-    public LocalTime getHorario() {
-		return horario;
-	}
 
-	public void setHorario(LocalTime horario) {
-		this.horario = horario;
-	}
+    public LocalTime getHorario() {
+        return horario;
+    }
+
+    public void setHorario(LocalTime horario) {
+        this.horario = horario;
+    }
 }
 

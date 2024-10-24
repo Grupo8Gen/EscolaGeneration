@@ -24,18 +24,18 @@ public class AlunoController {
 
     @Autowired
     private TurmaService turmaService;
-    
+
     @Autowired
     private AlunoRepository alunoRepository;
 
     @GetMapping
     public ResponseEntity<List<Aluno>> getAllAlunos() {
         List<Aluno> alunos = alunoService.findAll();
-        
+
         // logica pra mostar a media
         for (Aluno aluno : alunos) {
             double mediaNotas = (aluno.getNotaPrimeiroModulo() + aluno.getNotaSegundoModulo()) / 2;
-            aluno.setMedia(mediaNotas); 
+            aluno.setMedia(mediaNotas);
         }
 
         return ResponseEntity.ok(alunos);
@@ -45,10 +45,10 @@ public class AlunoController {
     public ResponseEntity<Aluno> getAlunoById(@PathVariable Long id) {
 
         Optional<Aluno> aluno = alunoRepository.findById(id);
-        
+
         if (aluno.isPresent()) {
             Aluno alunoEncontrado = aluno.get();
-            
+
             // logica pra mostar a media
             double mediaNotas = (alunoEncontrado.getNotaPrimeiroModulo() + alunoEncontrado.getNotaSegundoModulo()) / 2;
             alunoEncontrado.setMedia(mediaNotas); // Certifique-se de ter o método 'setMedia' no model
@@ -62,11 +62,11 @@ public class AlunoController {
     @PostMapping
     public ResponseEntity<Map<String, Object>> createAluno(@RequestBody Aluno aluno) {
         try {
-            
+
             Aluno novoAluno = alunoService.save(aluno);
-            
+
             double mediaNotas = (novoAluno.getNotaPrimeiroModulo() + novoAluno.getNotaSegundoModulo()) / 2;
-            
+
             Map<String, Object> response = new HashMap<>();
             response.put("id", novoAluno.getId());
             response.put("nome", novoAluno.getNome());
