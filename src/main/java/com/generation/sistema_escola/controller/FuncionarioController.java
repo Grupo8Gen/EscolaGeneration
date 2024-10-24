@@ -16,14 +16,14 @@ public class FuncionarioController {
     @Autowired
     private FuncionarioService service;
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}") //add esse caminho
     public ResponseEntity<Funcionario> GetById(@PathVariable long id) {
         return service.getById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping
+    @GetMapping ("/all") //add esse caminho
     public ResponseEntity<List<Funcionario>> getAll() {
         List<Funcionario> funcionarios = service.getAll();
         if (funcionarios.isEmpty()) {
@@ -38,7 +38,7 @@ public class FuncionarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(novoFuncionario);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<Funcionario> put(@RequestBody Funcionario funcionario) {
         Funcionario funcionarioAtualizado = service.updateFuncionario(funcionario);
         return ResponseEntity.status(HttpStatus.OK).body(funcionarioAtualizado);

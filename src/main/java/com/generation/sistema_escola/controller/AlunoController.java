@@ -31,16 +31,32 @@ public class AlunoController {
     @GetMapping
     public ResponseEntity<List<Aluno>> getAllAlunos() {
         List<Aluno> alunos = alunoService.findAll();
+        
+        // logica pra mostar a media
+        for (Aluno aluno : alunos) {
+            double mediaNotas = (aluno.getNotaPrimeiroModulo() + aluno.getNotaSegundoModulo()) / 2;
+            aluno.setMedia(mediaNotas); 
+        }
+
         return ResponseEntity.ok(alunos);
     }
 
     @GetMapping("/buscar/{id}")
     public ResponseEntity<Aluno> getAlunoById(@PathVariable Long id) {
-    
+
         Optional<Aluno> aluno = alunoRepository.findById(id);
-        //System.out.println("teste" + aluno.get().getEmail());
-        return aluno.map(ResponseEntity::ok)
-                    .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+        
+        if (aluno.isPresent()) {
+            Aluno alunoEncontrado = aluno.get();
+            
+            // logica pra mostar a media
+            double mediaNotas = (alunoEncontrado.getNotaPrimeiroModulo() + alunoEncontrado.getNotaSegundoModulo()) / 2;
+            alunoEncontrado.setMedia(mediaNotas); // Certifique-se de ter o método 'setMedia' no model
+
+            return ResponseEntity.ok(alunoEncontrado);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @PostMapping
