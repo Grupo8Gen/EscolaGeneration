@@ -46,7 +46,9 @@ public class Funcionario implements UserDetails {
 
     private UserRole role;
 
-    public Funcionario(String email, String senha, UserRole role){
+    public Funcionario(String nome, String cargo, String email, String senha, UserRole role){
+        this.nome = nome;
+        this.cargo = cargo;
         this.email = email;
         this.senha = senha;
         this.role = role;
@@ -60,7 +62,7 @@ public class Funcionario implements UserDetails {
 
     @Override
     public String getPassword() {
-        return "";
+        return senha;
     }
 
     @Override

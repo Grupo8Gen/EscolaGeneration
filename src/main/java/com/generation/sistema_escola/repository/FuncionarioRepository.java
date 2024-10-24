@@ -7,5 +7,5 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {
 
-    UserDetails findByEmail(String email);
+    Funcionario findByEmail(String email);
 }
