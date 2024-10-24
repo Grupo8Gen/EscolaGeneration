@@ -3,7 +3,9 @@ package com.generation.sistema_escola.service;
 import com.generation.sistema_escola.model.Funcionario;
 import com.generation.sistema_escola.repository.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -25,15 +27,10 @@ public class FuncionarioService {
 
     public Funcionario saveFuncionario(Funcionario funcionario) {
         if (repository.existsByEmail(funcionario.getUsername())) {
-            throw new IllegalArgumentException("E-mail já cadastrado.");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "E-mail já cadastrado.");
         }
-        try {
-            return repository.save(funcionario);
-        } catch (Exception e) {
-            throw new RuntimeException("Erro ao salvar o funcionário", e);
-        }
+        return repository.save(funcionario);
     }
-
 
     public Funcionario updateFuncionario(Funcionario funcionario) {
         try {
@@ -49,5 +46,4 @@ public class FuncionarioService {
             return funcionario;
         }).orElseThrow(() -> new NoSuchElementException("Funcionário não encontrado para o ID: " + id));
     }
-
 }
