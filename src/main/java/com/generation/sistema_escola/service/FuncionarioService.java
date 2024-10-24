@@ -24,10 +24,9 @@ public class FuncionarioService {
     }
 
     public Funcionario saveFuncionario(Funcionario funcionario) {
-        if (repository.existsByEmail(funcionario.getEmail())) {
+        if (repository.existsByEmail(funcionario.getUsername())) {
             throw new IllegalArgumentException("E-mail já cadastrado.");
         }
-
         try {
             return repository.save(funcionario);
         } catch (Exception e) {
