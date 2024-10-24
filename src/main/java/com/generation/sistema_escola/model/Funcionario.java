@@ -46,7 +46,7 @@ public class Funcionario implements UserDetails {
 
     private UserRole role;
 
-    public Funcionario(String nome, String cargo, String email, String senha, UserRole role){
+    public Funcionario(String nome, String cargo, String email, String senha, UserRole role) {
         this.nome = nome;
         this.cargo = cargo;
         this.email = email;
@@ -56,7 +56,8 @@ public class Funcionario implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        if (this.role == UserRole.ADMIN)
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
         else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
