@@ -33,10 +33,17 @@ public class FuncionarioController {
     }
 
     @PostMapping
-    public ResponseEntity<Funcionario> post(@RequestBody Funcionario funcionario) {
-        Funcionario novoFuncionario = service.saveFuncionario(funcionario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(novoFuncionario);
+    public ResponseEntity<?> post(@RequestBody Funcionario funcionario) {
+        try {
+            Funcionario novoFuncionario = service.saveFuncionario(funcionario);
+            return ResponseEntity.status(HttpStatus.CREATED).body(novoFuncionario);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao salvar o funcionário: " + e.getMessage());
+        }
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Funcionario> put(@RequestBody Funcionario funcionario) {

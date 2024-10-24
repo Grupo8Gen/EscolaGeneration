@@ -23,17 +23,15 @@ public class FuncionarioService {
         return repository.findAll();
     }
 
+
+
     public Funcionario saveFuncionario(Funcionario funcionario) {
-        if (repository.existsByEmail(funcionario.getEmail())) {
+        if (repository.existsByEmail(funcionario.getUsername())) {
             throw new IllegalArgumentException("E-mail já cadastrado.");
         }
-
-        try {
-            return repository.save(funcionario);
-        } catch (Exception e) {
-            throw new RuntimeException("Erro ao salvar o funcionário", e);
-        }
+        return repository.save(funcionario);
     }
+
 
 
     public Funcionario updateFuncionario(Funcionario funcionario) {
