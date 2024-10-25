@@ -8,6 +8,7 @@ import com.generation.sistema_escola.model.RegisterDTO;
 import com.generation.sistema_escola.repository.FuncionarioRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -41,12 +42,9 @@ public class AuthenticationController {
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody @Valid RegisterDTO data) {
         if (this.repository.findByEmail(data.email()) != null) return ResponseEntity.badRequest().build();
-
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.senha());
         Funcionario newFuncionario = new Funcionario(data.nome(), data.cargo(), data.email(), encryptedPassword, data.role());
-
         this.repository.save(newFuncionario);
-
-        return ResponseEntity.ok(data);
+        return ResponseEntity.ok("Funcionario cadastrado: " + newFuncionario.getNome() + ", com codigo: " + newFuncionario.getId());
     }
 }

@@ -32,9 +32,20 @@ public class FuncionarioService {
         return repository.save(funcionario);
     }
 
-    public Funcionario updateFuncionario(Funcionario funcionario) {
+    public Funcionario updateFuncionario(Long id, Funcionario funcionario) {
+        Optional<Funcionario> funcionarioUpdate = repository.findById(id);
+        if (funcionarioUpdate.isEmpty()) {
+            throw new RuntimeException("Funcionário não encontrado");
+        }
+
+        Funcionario funcionarioExistente = funcionarioUpdate.get();
+        funcionarioExistente.setNome(funcionario.getNome());
+        funcionarioExistente.setEmail(funcionario.getEmail());
+        funcionarioExistente.setSenha(funcionario.getSenha());
+        funcionarioExistente.setCargo(funcionario.getCargo());
+
         try {
-            return repository.save(funcionario);
+            return repository.save(funcionarioExistente);
         } catch (Exception e) {
             throw new RuntimeException("Erro ao atualizar o funcionário", e);
         }
