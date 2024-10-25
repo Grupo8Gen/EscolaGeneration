@@ -15,6 +15,8 @@ Este projeto tem como objetivo desenvolver uma aplicação web para gerenciament
 
 ## Estrutura do Banco de Dados
 
+<img width="640" alt="Captura de Tela 2024-10-24 às 18 53 39" src="https://github.com/user-attachments/assets/83c551f2-6a76-45b3-8f3e-7f91e57acc03">
+
 - **Aluno**
   - id: PK, auto increment
   - nome: Obrigatório, mínimo 3 caracteres
