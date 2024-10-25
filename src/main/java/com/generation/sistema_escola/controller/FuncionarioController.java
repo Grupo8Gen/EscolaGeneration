@@ -53,7 +53,7 @@ public class FuncionarioController {
     public ResponseEntity<?> post(@RequestBody Funcionario funcionario) {
         try {
             Funcionario novoFuncionario = service.saveFuncionario(funcionario);
-            return ResponseEntity.status(HttpStatus.CREATED).body(novoFuncionario);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Funcionario cadastrado: " + novoFuncionario.getNome()+ ", com codigo: " + novoFuncionario.getId());
         } catch (ResponseStatusException e) {
             return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
         } catch (Exception e) {
@@ -63,9 +63,9 @@ public class FuncionarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Funcionario> put(@PathVariable Long id, @RequestBody Funcionario funcionario) {
+    public ResponseEntity<?> put(@PathVariable Long id, @RequestBody Funcionario funcionario) {
         Funcionario funcionarioAtualizado = service.updateFuncionario(id, funcionario);
-        return ResponseEntity.status(HttpStatus.OK).body(funcionarioAtualizado);
+        return ResponseEntity.status(HttpStatus.OK).body("Funcionario atualizado: " + funcionarioAtualizado.getNome() + ", com codigo: " + funcionarioAtualizado.getId());
     }
 
     @DeleteMapping("/{id}")
